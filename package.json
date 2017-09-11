@@ -1,0 +1,23 @@
+{
+  "name": "git-tables",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "wcastand <wcastand@gmail.com> (https://github.com/wcastand)",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "start": "next"
+  },
+  "dependencies": {
+    "github-markdown-css": "2.8.0",
+    "markdown-table": "1.1.1",
+    "next": "3.2.2",
+    "react": "15.6.1",
+    "react-copy-to-clipboard": "5.0.0",
+    "react-dom": "15.6.1",
+    "react-markdown": "2.5.0",
+    "react-remarkable": "1.1.1",
+    "remarkable-react": "1.0.1",
+    "styled-components": "2.1.2"
+  }
+}
