@@ -3,7 +3,7 @@ import {renderStatic} from 'glamor/server'
 
 const css = `
 * {box-sizing: border-box;}
-body{ font-family:'Roboto', sans-serif; font-size: 16px; margin: 0; padding: 0;}
+body{ font-family:'Roboto', sans-serif; font-size: 16px; margin: 0; padding: 0; background-color: #F1F1F1;}
 `
 
 export default class MyDocument extends Document {
