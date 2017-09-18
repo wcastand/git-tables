@@ -4,129 +4,15 @@ import ReactMD from 'react-remarkable'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import glamorous, {Div} from 'glamorous'
 
-const Container = glamorous.div({
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  maxWidth: 1024,
-  margin: '0 auto',
-  fontFamily: 'Roboto',
-  fontSize: 16,
-})
-const Column = glamorous.div(
-  {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    padding: 25,
-  },
-  props => ({flex: props.flex || 1})
-)
-
-const Icon = ({className, type, selected = false, ...props}) => (
-  <Div
-    display="flex"
-    justifyContent="center"
-    alignItems="center"
-    color={selected ? '#FF9036' : '#F1F1F1'}
-    backgroundColor={selected ? '#F1F1F1' : '#333'}
-    display="flex"
-    border="1px solid #333"
-    padding={4}
-    userSelect="none"
-    cursor="pointer"
-    width="35px"
-    height="35px"
-    transition="all .3s ease"
-    {...props}>
-    <i className="material-icons" style={{fontSize: 20}}>
-      {type}
-    </i>
-  </Div>
-)
-
-const ContainerD = glamorous.div({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  color: '#333',
-  backgroundColor: '#F1F1F1',
-  display: 'flex',
-  border: '1px solid #333',
-  padding: 4,
-  userSelect: 'none',
-  cursor: 'pointer',
-  width: '35px',
-  height: '35px',
-  transition: 'all .3s ease',
-  ':hover': {
-    backgroundColor: '#333',
-    color: '#F1F1F1',
-  },
-})
-
-const Delete = ({className, type, ...props}) => (
-  <ContainerD {...props}>
-    <i className="material-icons" style={{fontSize: 20}}>
-      {type}
-    </i>
-  </ContainerD>
-)
-
-const Input = glamorous.input({
-  fontFamily: 'Roboto',
-  fontSize: 16,
-  width: '100%',
-  height: 35,
-  outline: 'none',
-  border: 'none',
-  padding: 12,
-  margin: 8,
-  backgroundColor: 'transparent',
-  border: '1px solid #333',
-  color: '#333',
-  transition: 'all .3s ease',
-  ':focus': {},
-})
-
-const Button = glamorous.button({
-  fontFamily: 'Roboto',
-  border: 'none',
-  outline: 'none',
-  height: 35,
-  minWidth: 35,
-  lineHeight: '11px',
-  padding: 12,
-  margin: '12px 0',
-  backgroundColor: '#F1F1F1',
-  border: '1px solid #333',
-  color: '#333',
-  transition: 'all .3s ease',
-  cursor: 'pointer',
-  ':hover': {
-    color: '#F1F1F1',
-    backgroundColor: '#333',
-  },
-})
-
-const Code = glamorous.pre({
-  width: '100%',
-  padding: 12,
-  backgroundColor: '#FAFAFA',
-  color: '#333',
-  borderRadius: 0,
-})
-
-const Title = glamorous.h2({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  fontFamily: 'Roboto',
-  padding: 0,
-  color: '#333',
-})
+import Code from '../components/code'
+import Icon from '../components/icon'
+import Hint from '../components/hint'
+import Title from '../components/title'
+import Input from '../components/input'
+import Button from '../components/button'
+import Column from '../components/column'
+import Delete from '../components/delete'
+import Container from '../components/container'
 
 function parse(state) {
   const rrows = state.rows.map(r => r.split(',').map(s => (s ? s.trim() : '')))
@@ -214,8 +100,16 @@ class Index extends React.Component {
             <glamorous.Span paddingRight={12}>Header</glamorous.Span>
             <Button onClick={this._addTitle}>+</Button>
           </Title>
+          <Hint>
+            <li>
+              You can add a column by hitting enter in the last input of the list or by clicking on
+              the "+"
+            </li>
+            <li>To delete a column simply delete the text and hit backspace once.</li>
+          </Hint>
           {this.state.columns.map((data, idx) => (
             <Div display="flex" alignItems="center" width="100%" key={`title_${idx}`}>
+              <Delete type="remove" onClick={() => this._removeTitle(idx)} />
               <Input
                 value={data}
                 onChange={e => this._changeTitle(idx, e.target.value)}
@@ -245,15 +139,24 @@ class Index extends React.Component {
             <glamorous.Span paddingRight={12}>Rows</glamorous.Span>
             <Button onClick={this._addRow}>+</Button>
           </Title>
+          <Hint>
+            <li>
+              You can add a row by hitting enter in the last input of the list or by clicking on the
+              "+"
+            </li>
+            <li>
+              To delete a row simply delete the text and hit backspace once. or click on the "-"
+            </li>
+          </Hint>
           {this.state.rows.map((data, idx) => (
             <Div display="flex" alignItems="center" width="100%" key={`data_${idx}`}>
+              <Delete type="remove" onClick={() => this._removeRow(idx)} />
               <Input
                 value={data}
                 onChange={e => this._changeData(idx, e.target.value)}
                 onKeyDown={e => this._testKeyRow(idx, e)}
                 innerRef={r => (this._input = r)}
               />
-              <Delete type="remove" onClick={() => this._removeRow(idx)} />
             </Div>
           ))}
         </Column>
