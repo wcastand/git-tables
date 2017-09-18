@@ -25,7 +25,7 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <title>With Glamorous</title>
+          <title>Git Tables</title>
           <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
           <link rel="stylesheet" href="/static/app.css" />
