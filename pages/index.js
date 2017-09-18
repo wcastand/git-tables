@@ -7,11 +7,13 @@ import glamorous, {Div} from 'glamorous'
 import Code from '../components/code'
 import Icon from '../components/icon'
 import Hint from '../components/hint'
+import Align from '../components/align'
 import Title from '../components/title'
 import Input from '../components/input'
 import Button from '../components/button'
 import Column from '../components/column'
 import Delete from '../components/delete'
+import Preview from '../components/preview'
 import Container from '../components/container'
 
 function parse(state) {
@@ -116,23 +118,7 @@ class Index extends React.Component {
                 onKeyDown={e => this._testKeyTitle(idx, e)}
                 innerRef={r => (this._inputTitle = r)}
               />
-              <Div display="flex">
-                <Icon
-                  type="format_align_left"
-                  selected={this.state.aligns[idx] === 'l'}
-                  onClick={() => this._changeAlign(idx, 'l')}
-                />
-                <Icon
-                  type="format_align_center"
-                  selected={this.state.aligns[idx] === 'c'}
-                  onClick={() => this._changeAlign(idx, 'c')}
-                />
-                <Icon
-                  type="format_align_right"
-                  selected={this.state.aligns[idx] === 'r'}
-                  onClick={() => this._changeAlign(idx, 'r')}
-                />
-              </Div>
+              <Align state={this.state.aligns} idx={idx} action={this._changeAlign} />
             </Div>
           ))}
           <Title color="#F1F1F1">
@@ -161,13 +147,7 @@ class Index extends React.Component {
           ))}
         </Column>
         <Column flex={2}>
-          <Div
-            flex={1}
-            display="flex"
-            flexDirection="column"
-            width="100%"
-            justifyContent="flex-start"
-            alignItems="flex-start">
+          <Preview>
             <Title children="Preview" />
             <CopyToClipboard text={parse(this.state)}>
               <Button>Copy the markdown</Button>
@@ -176,7 +156,7 @@ class Index extends React.Component {
               <ReactMD source={parse(this.state)} />
             </div>
             <Code>{parse(this.state)}</Code>
-          </Div>
+          </Preview>
         </Column>
       </Container>
     )
