@@ -6,14 +6,12 @@ const css = `
 body{ font-family:'Roboto', sans-serif; font-size: 16px; margin: 0; padding: 0; background-color: #F1F1F1;}
 `
 const script = `
-if(process.browser){
   window.dataLayer = window.dataLayer || []
   function gtag(){
     dataLayer.push(arguments)
   }
   gtag('js', new Date())
   gtag('config', 'UA-107418384-1')
-}
 `
 
 export default class MyDocument extends Document {
@@ -36,7 +34,7 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107418384-1" />
-          <script>{script}</script>
+          <script dangerouslySetInnerHTML={{__html: script}} />
 
           <title>Git Tables</title>
           <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
