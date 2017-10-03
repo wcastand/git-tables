@@ -31,6 +31,11 @@ export default class MyDocument extends Document {
           <link rel="stylesheet" href="/static/app.css" />
           <style>{css}</style>
           <style dangerouslySetInnerHTML={{__html: this.props.css}} />
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107418384-1" />
+          <script>
+            window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments)};
+            gtag('js', new Date()); gtag('config', 'UA-107418384-1');
+          </script>
         </Head>
         <body>
           <Main />
