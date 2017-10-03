@@ -6,12 +6,15 @@ const css = `
 body{ font-family:'Roboto', sans-serif; font-size: 16px; margin: 0; padding: 0; background-color: #F1F1F1;}
 `
 const script = `
-  window.dataLayer = window.dataLayer || []
-  function gtag(){
-    dataLayer.push(arguments)
-  }
-  gtag('js', new Date())
-  gtag('config', 'UA-107418384-1')
+var clicky_site_ids = clicky_site_ids || [];
+clicky_site_ids.push(101076134);
+(function() {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//static.getclicky.com/js';
+  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+})();
 `
 
 export default class MyDocument extends Document {
@@ -33,15 +36,13 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107418384-1" />
-          <script dangerouslySetInnerHTML={{__html: script}} />
-
           <title>Git Tables</title>
           <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
           <link rel="stylesheet" href="/static/app.css" />
           <style>{css}</style>
           <style dangerouslySetInnerHTML={{__html: this.props.css}} />
+          <script dangerouslySetInnerHTML={{__html: script}} />
         </Head>
         <body>
           <Main />
